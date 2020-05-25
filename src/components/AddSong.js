@@ -1,9 +1,29 @@
 import React from 'react';
-import { TextField, InputAdornment, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { TextField, InputAdornment, Button, Dialog, DialogTitle, DialogContent, DialogActions, makeStyles } from '@material-ui/core';
 import { Link, AddBoxOutlined } from '@material-ui/icons';
 
 
+const useStyles = makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    urlInput: {
+        margin: theme.spacing(1)
+    },
+    addSongButton: {
+        margin: theme.spacing(1)
+    },
+    dialog: {
+        textAlign: 'center'
+    },
+    thumbnail: {
+        width: '90%'
+    }
+}))
+
 function AddSong() {
+    const classes = useStyles();
 
     const [dialog, setDialog] = React.useState(false)
     
@@ -13,16 +33,22 @@ function AddSong() {
     }
 
     return (
-        <div>
+        <div className={classes.container}>
             <Dialog
                 open={dialog}
                 onClose={handleClose}
+                className={classes.dialog}
+                style={{ paddingTop: 80 }} 
             >
                 <DialogTitle>
                     Edit Song
                 </DialogTitle>
                 <DialogContent>
-                    <img src="https://ww1.prweb.com/prfiles/2014/04/10/11752526/gI_134971_best-image-web-hosting.png" alt="Song tumbnail"/> 
+                    <img
+                        src="https://ww1.prweb.com/prfiles/2014/04/10/11752526/gI_134971_best-image-web-hosting.png"
+                        alt="Song tumbnail"
+                        thumbnail={classes.thumbnail}
+                    /> 
                 </DialogContent>
                 <TextField
                     margin="dense"
@@ -52,18 +78,20 @@ function AddSong() {
                 </DialogActions>
             </Dialog>
             <TextField
+                className={classes.urlInput}
                 placeholder="Add YouTube or SoundCloud Url"
                 fullWidth
                 type='url'
                 InputProps={{
                     startAdornment: (
-                        <InputAdornment>
+                        <InputAdornment position="start">
                             <Link/>
                         </InputAdornment>
                     )
                 }}
             />
             <Button
+                className={classes.addSongButton}
                 variant='contained'
                 color="primary"
                 endIcon={<AddBoxOutlined />}
