@@ -10,13 +10,18 @@ function App() {
     <div >
       <Header />
 
-      <Grid container spacing={3} style={{width: '100%'}}>
+      <Grid style={{ width: '100%' }} container spacing={3} >
         <Grid style={{ paddingTop: 80 }} item xs={12} md={7}>
           <AddSong />
           <SongList />
         </Grid>
 
-        <Grid item xs={12} md={5}>
+        <Grid style={{
+          position: 'fixed',
+          width: '100%',
+          right: 0,
+          top: 70
+        }} item xs={12} md={5}>
           <SongPlayer />
         </Grid>
       </Grid>
