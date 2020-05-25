@@ -15,7 +15,9 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1)
     },
     dialog: {
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '100%',
+        scroll: 'paper'
     },
     thumbnail: {
         width: '90%'
@@ -38,7 +40,13 @@ function AddSong() {
                 open={dialog}
                 onClose={handleClose}
                 className={classes.dialog}
-                style={{ paddingTop: 80 }}
+                PaperProps={{
+                    style: {
+                        padding: 20,
+                        width: "100%"
+                    },
+                }}
+                // style={{ paddingTop: 80 }}
             >
                 <DialogTitle>
                     Edit Song
