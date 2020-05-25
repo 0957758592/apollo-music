@@ -65,24 +65,24 @@ function Song({ song }) {
         <Card className={classes.container}>
             <div className={classes.songInfoContainer}>
                 <CardMedia image={thumbnail} className={classes.thumbnail} />
-                    <div className={classes.songInfo}>
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                {title}
-                            </Typography>
-                            <Typography variant="body1" component="p" color="textSecondary">
-                                {artist}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <IconButton size="small" color='prшmary'>
-                                <PlayArrow />
-                            </IconButton>
-                            <IconButton size="small" color='secondary'>
-                                <Save />
-                            </IconButton>
-                        </CardActions>
-                    </div>
+                <div className={classes.songInfo}>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {title}
+                        </Typography>
+                        <Typography variant="body1" component="p" color="textSecondary">
+                            {artist}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <IconButton size="small" color='prшmary'>
+                            <PlayArrow />
+                        </IconButton>
+                        <IconButton size="small" color='secondary'>
+                            <Save />
+                        </IconButton>
+                    </CardActions>
+                </div>
             </div>
         </Card>
     )

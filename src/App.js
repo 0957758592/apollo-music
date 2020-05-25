@@ -3,18 +3,21 @@ import Header from './components/Header'
 import AddSong from './components/AddSong'
 import SongList from './components/SongList'
 import SongPlayer from './components/SongPlayer'
-import { Grid, useMediaQuery } from "@material-ui/core"
+import { Grid, useMediaQuery, Hidden } from "@material-ui/core"
 
 function App() {
 
+  const greaterThanSM = useMediaQuery(theme => theme.breakpoints.up('sm'))
   const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'))
 
   return (
     <div >
-      <Header />
+      <Hidden only='xs'>
+        <Header />
+      </Hidden>
 
       <Grid style={{ width: '100%' }} container spacing={3} >
-        <Grid style={{ paddingTop: 80 }} item xs={12} md={7}>
+        <Grid style={{ paddingTop: greaterThanSM ? 80 : 10 }} item xs={12} md={7}>
           <AddSong />
           <SongList />
         </Grid>
@@ -29,7 +32,7 @@ function App() {
             width: '100%',
             left: 0,
             bottom: 0
-        }} item xs={12} md={5}>
+          }} item xs={12} md={5}>
           <SongPlayer />
         </Grid>
       </Grid>

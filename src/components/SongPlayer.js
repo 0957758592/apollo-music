@@ -50,13 +50,13 @@ function SongPlayer() {
                     </CardContent>
                     <div className={classes.controls}>
                         <IconButton>
-                            <SkipPrevious/>
+                            <SkipPrevious />
                         </IconButton>
                         <IconButton>
-                            <PlayArrow className={classes.playIcon}/>
+                            <PlayArrow className={classes.playIcon} />
                         </IconButton>
                         <IconButton>
-                            <SkipNext/>
+                            <SkipNext />
                         </IconButton>
                         <Typography variant="subtitle1" component="p" color="textSecondary">
                             00:01:30
@@ -73,7 +73,7 @@ function SongPlayer() {
                     image="https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
                 />
             </Card>
-            <QueuedSongList/>
+            <QueuedSongList />
         </>
     );
 }

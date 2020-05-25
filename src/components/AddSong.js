@@ -26,7 +26,7 @@ function AddSong() {
     const classes = useStyles();
 
     const [dialog, setDialog] = React.useState(false)
-    
+
 
     function handleClose() {
         setDialog(false)
@@ -38,7 +38,7 @@ function AddSong() {
                 open={dialog}
                 onClose={handleClose}
                 className={classes.dialog}
-                style={{ paddingTop: 80 }} 
+                style={{ paddingTop: 80 }}
             >
                 <DialogTitle>
                     Edit Song
@@ -48,7 +48,7 @@ function AddSong() {
                         src="https://ww1.prweb.com/prfiles/2014/04/10/11752526/gI_134971_best-image-web-hosting.png"
                         alt="Song tumbnail"
                         thumbnail={classes.thumbnail}
-                    /> 
+                    />
                 </DialogContent>
                 <TextField
                     margin="dense"
@@ -85,7 +85,7 @@ function AddSong() {
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
-                            <Link/>
+                            <Link />
                         </InputAdornment>
                     )
                 }}

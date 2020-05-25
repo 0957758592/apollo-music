@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core';
-import {  Delete } from '@material-ui/icons';
+import { Delete } from '@material-ui/icons';
 
 function QueuedSongList() {
 
@@ -13,12 +13,12 @@ function QueuedSongList() {
     }
 
     return greaterThanMd && (
-        <div style={{margin: "10px 0"}}>
+        <div style={{ margin: "10px 0" }}>
             <Typography color="textSecondary" variant='button'>
                 QUEUE ({QueuedSong.length})
             </Typography>
             {Array.from({ length: 5 }, () => song).map((song, i) => (
-                <QueuedSong key={i} song={song}/>
+                <QueuedSong key={i} song={song} />
             ))}
         </div>
     );
@@ -49,14 +49,14 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function QueuedSong({ song }) {
-    
+
     const classes = useStyles();
 
     const { title, artist, thumbnail } = song;
 
     return (
         <div className={classes.container}>
-            <Avatar src={thumbnail} alt='Song humbnail' className={classes.avatar}/>
+            <Avatar src={thumbnail} alt='Song humbnail' className={classes.avatar} />
             <div className={classes.songInfoContainer}>
                 <Typography variant='subtitle2' className={classes.text}>
                     {title}
@@ -66,7 +66,7 @@ function QueuedSong({ song }) {
                 </Typography>
             </div>
             <IconButton>
-                <Delete color="error"/>
+                <Delete color="error" />
             </IconButton>
         </div>
     )
