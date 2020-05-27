@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, InputAdornment, Button, Dialog, DialogTitle, DialogContent, DialogActions, makeStyles } from '@material-ui/core';
 import { Link, AddBoxOutlined } from '@material-ui/icons';
-
+import ReactPlayer from 'react-player'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -26,8 +26,14 @@ const useStyles = makeStyles(theme => ({
 
 function AddSong() {
     const classes = useStyles();
-
+    const [url, setUrl] = React.useState('')
+    const [playable, setPlayable] = React.useState(false)
     const [dialog, setDialog] = React.useState(false)
+
+    React.useEffect(() => {
+        const isPlayable = ReactPlayer.canPlay(url)
+        setPlayable(isPlayable)
+    }, [url])
 
 
     function handleClose() {
@@ -87,6 +93,8 @@ function AddSong() {
             </Dialog>
             <TextField
                 className={classes.urlInput}
+                onChange={e => setUrl(e.target.value)}
+                value={url}
                 placeholder="Add YouTube or SoundCloud Url"
                 fullWidth
                 type='url'
@@ -99,6 +107,7 @@ function AddSong() {
                 }}
             />
             <Button
+                disabled={!playable}
                 className={classes.addSongButton}
                 variant='contained'
                 color="primary"

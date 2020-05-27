@@ -79,7 +79,7 @@ function Song({ song }) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <IconButton size="small" color='prшmary'>
+                        <IconButton size="small" color='primary'>
                             <PlayArrow />
                         </IconButton>
                         <IconButton size="small" color='secondary'>
