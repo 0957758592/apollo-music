@@ -2,6 +2,8 @@ import React from 'react';
 import { TextField, InputAdornment, Button, Dialog, DialogTitle, DialogContent, DialogActions, makeStyles } from '@material-ui/core';
 import { Link, AddBoxOutlined } from '@material-ui/icons';
 import ReactPlayer from 'react-player'
+import { ADD_SONG } from '../graphql/mutation';
+import { useMutation } from '@apollo/react-hooks';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -24,11 +26,20 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+const DEFAULT_SONG = {
+    duration: 0,
+    title: '',
+    artist: '',
+    thumbnail: ''
+}
+
 function AddSong() {
     const classes = useStyles();
+    const [addSong, {error}] = useMutation(ADD_SONG)
     const [url, setUrl] = React.useState('')
     const [playable, setPlayable] = React.useState(false)
     const [dialog, setDialog] = React.useState(false)
+    const [song, setSong] = React.useState(DEFAULT_SONG);
 
     React.useEffect(() => {
         const isPlayable = ReactPlayer.canPlay(url)
@@ -38,6 +49,88 @@ function AddSong() {
 
     function handleClose() {
         setDialog(false)
+    }
+
+    async function handleEditSong({ player }) {
+
+        let songData;
+
+        const nestedPlayer = player.player.player;
+        if (nestedPlayer.getVideoData) {
+            songData = await getYoutubeInfo(nestedPlayer);
+        } else if (nestedPlayer.getCurrentSound) {
+            songData = await getSoundCloudInfo(nestedPlayer)
+        }
+
+        setSong({...songData, url})
+    }
+
+    function getYoutubeInfo(player) {
+
+        const duration = player.getDuration();
+        const { title, video_id, author } = player.getVideoData();
+        const thumbnail = `https://img.youtube.com/vi/${video_id}/0.jpg`
+
+        return {
+            duration,
+            title,
+            artist: author,
+            thumbnail
+        }
+    }
+
+    function getSoundCloudInfo(player) {
+        return new Promise(resolve => {
+            player.getCurrentSound(songData => {
+                if (songData) {
+                    resolve({
+                        duration: Number(songData.duration / 1000),
+                        title: songData.title,
+                        artist: songData.username,
+                        thumbnail: songData.artwork_url.replace('-large', '-t500x500')
+                    })
+                }
+            })
+        })
+    }
+
+    const { thumbnail, title, artist } = song;
+
+    function handleChangeSong(e) {
+        const { name, value } = e.target;
+
+        setSong(prevSong => ({
+            ...prevSong,
+            [name]: value
+        }))
+    }
+
+    async function handleAddSong(e) {
+        e.preventDefault();
+
+        try {
+            const { title, artist, url, thumbnail, duration } = song;
+            await addSong({
+                variables: {
+                    url: url.length > 0 ? url : null,
+                    thumbnail: thumbnail.length > 0 ? thumbnail : null,
+                    duration: duration > 0 ? duration : null,
+                    title: title.length > 0 ? title : null,
+                    artist: artist.length > 0 ? url : null
+                }
+            })
+            handleClose();
+            setSong(DEFAULT_SONG)
+            setUrl('')
+        } catch (error) {
+            console.error("Error adding song", song)
+        }
+
+
+    }
+
+    function handleError(field) {
+        return error?.graphQLErrors[0]?.extensions.path?.includes(field)
     }
 
     return (
@@ -52,41 +145,54 @@ function AddSong() {
                         width: "100%"
                     },
                 }}
-                // style={{ paddingTop: 80 }}
+            // style={{ paddingTop: 80 }}
             >
                 <DialogTitle>
                     Edit Song
                 </DialogTitle>
                 <DialogContent>
                     <img
-                        src="https://ww1.prweb.com/prfiles/2014/04/10/11752526/gI_134971_best-image-web-hosting.png"
+                        src={thumbnail}
                         alt="Song tumbnail"
                         thumbnail={classes.thumbnail}
                     />
                 </DialogContent>
                 <TextField
+                    value={title}
+                    onChange={handleChangeSong}
                     margin="dense"
                     name='title'
                     label="Title"
                     fullWidth
+                    error={handleError('title')}
+                    helperText={handleError('title') && 'Fill out field'}
                 />
                 <TextField
+                    onChange={handleChangeSong}
+                    value={artist}
                     margin="dense"
                     name='artist'
                     label="Artist"
                     fullWidth
+                    error={handleError('artist')}
+                    helperText={handleError('artist') && 'Fill out field'}
                 />
-                <TextField
+                {/* <TextField
+                    onChange={handleChangeSong}
+                    value={thumbnail}
                     margin="dense"
                     name='thumbnail'
                     label="Thumbnail"
                     fullWidth
-                />
+                    error={handleError('thumbnail')}
+                    helperText={handleError('thumbnail') && 'Fill out field'}
+                /> */}
+                
                 <DialogActions>
                     <Button onClick={handleClose} color="secondary">
                         Cancel
                     </Button>
-                    <Button variant="outlined" onClick={handleClose} color="primary">
+                    <Button variant="outlined" onClick={handleAddSong} color="primary">
                         Add Song
                     </Button>
                 </DialogActions>
@@ -116,6 +222,7 @@ function AddSong() {
             >
                 Add
             </Button>
+            <ReactPlayer url={url} hidden onReady={handleEditSong} />
         </div>
     );
 }
