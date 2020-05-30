@@ -1,12 +1,13 @@
 import React from 'react';
 import { CircularProgress, Card, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles } from '@material-ui/core';
 import { PlayArrow, Save } from '@material-ui/icons';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_SONGS } from '../graphql/queries';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
+// import { GET_SONGS } from '../graphql/queries';
+import { GET_SONGS } from '../graphql/subscriptions';
 
 function SongList() {
 
-    const { data, loading, error } = useQuery(GET_SONGS);
+    const { data, loading, error } = useSubscription(GET_SONGS);
 
     // const song = {
     //     title: "sss0",

@@ -116,7 +116,7 @@ function AddSong() {
                     thumbnail: thumbnail.length > 0 ? thumbnail : null,
                     duration: duration > 0 ? duration : null,
                     title: title.length > 0 ? title : null,
-                    artist: artist.length > 0 ? url : null
+                    artist: artist.length > 0 ? artist : null
                 }
             })
             handleClose();
