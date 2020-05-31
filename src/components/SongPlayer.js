@@ -41,7 +41,7 @@ function SongPlayer() {
     const classes = useStyles();
 
     function handleTogglePlay() {
-        dispatch(state.isPlaying ? {type: "PAUSE_SONG"} : {type:  "PLAY_SONG" } )
+        dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
     }
 
     return (
@@ -61,7 +61,7 @@ function SongPlayer() {
                             <SkipPrevious />
                         </IconButton>
                         <IconButton onClick={handleTogglePlay}>
-                            {state.isPlaying ? <Pause className={classes.playIcon}/> : <PlayArrow className={classes.playIcon} />}
+                            {state.isPlaying ? <Pause className={classes.playIcon} /> : <PlayArrow className={classes.playIcon} />}
                         </IconButton>
                         <IconButton>
                             <SkipNext />

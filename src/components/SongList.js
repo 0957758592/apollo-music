@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => (
 function Song({ song }) {
     const { id } = song
     const classes = useStyles()
-    const { state } = React.useContext(SongContext)
+    const { state, dispatch } = React.useContext(SongContext)
     const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false)
 
     React.useEffect(() => {
@@ -75,6 +75,12 @@ function Song({ song }) {
     }, [id, state.song.id, state.isPlaying])
 
     const { title, artist, thumbnail } = song
+
+    function handleTogglePlay() {
+        dispatch({ type: "SET_SONG", payload: { song } })
+        dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
+    }
+
     return (
         <Card className={classes.container}>
             <div className={classes.songInfoContainer}>
@@ -89,8 +95,8 @@ function Song({ song }) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <IconButton size="small" color='primary'>
-                           {currentSongPlaying ? <Pause/> : <PlayArrow />}
+                        <IconButton size="small" color='primary' onClick={handleTogglePlay}>
+                            {currentSongPlaying ? <Pause /> : <PlayArrow />}
                         </IconButton>
                         <IconButton size="small" color='secondary'>
                             <Save />
