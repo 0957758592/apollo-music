@@ -7,14 +7,15 @@ import { Grid, useMediaQuery, Hidden } from "@material-ui/core"
 import songReducer from './store/reducer'
 
 export const SongContext = React.createContext({
-  song: {
-    id: 'cdefc2ca-fd9c-415f-b84c-7742a34f8785',
-    title: 'Unforgivable(First State Remix Edit)',
-    artist: "Armin",
-    thumbnail: 'https://img.youtube.com/vi/FPPchfgTCZ0/0.jpg',
-    url: 'https://www.youtube.com/watch?v=FPPchfgTCZ0&list=LL3xmAZGZZ04QU9qc7fQqvvg&index=7&t=0s',
-    duration: 400
-  },
+  // song: {
+  //   id: 'cdefc2ca-fd9c-415f-b84c-7742a34f8785',
+  //   title: 'Unforgivable(First State Remix Edit)',
+  //   artist: "Armin",
+  //   thumbnail: 'https://img.youtube.com/vi/FPPchfgTCZ0/0.jpg',
+  //   url: 'https://www.youtube.com/watch?v=FPPchfgTCZ0&list=LL3xmAZGZZ04QU9qc7fQqvvg&index=7&t=0s',
+  //   duration: 400
+  // },
+  song: {},
   isPlaying: false
 })
 
