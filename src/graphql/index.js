@@ -4,7 +4,7 @@ import { InMemoryCache } from "apollo-cache-inmemory"
 import { gql } from 'apollo-boost'
 import { GET_QUEUED_SONGS } from './queries'
 
-const client  = new ApolloClient({
+const client = new ApolloClient({
     link: new WebSocketLink({
         uri: 'wss://apollo-music-a.herokuapp.com/v1/graphql',
         options: {
@@ -66,6 +66,6 @@ const data = {
     queue: []
 }
 
-client.writeData({data})
+client.writeData({ data })
 
 export default client;

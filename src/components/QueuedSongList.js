@@ -4,14 +4,8 @@ import { Delete } from '@material-ui/icons';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_OR_REMOVE_FROM_QUEUE } from '../graphql/mutation';
 
-function QueuedSongList({queue}) {
+function QueuedSongList({ queue }) {
     const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'))
-
-    // const song = {
-    //     title: "sss0",
-    //     artist: "asdf",
-    //     thumbnail: "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
-    // }
 
     return greaterThanMd && (
         <div style={{ margin: "10px 0" }}>
