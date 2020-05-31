@@ -1,20 +1,13 @@
 import React from 'react';
 import { CircularProgress, Card, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles } from '@material-ui/core';
 import { PlayArrow, Save, Pause } from '@material-ui/icons';
-import { useQuery, useSubscription } from '@apollo/react-hooks';
-// import { GET_SONGS } from '../graphql/queries';
+import { useSubscription } from '@apollo/react-hooks';
 import { GET_SONGS } from '../graphql/subscriptions';
 import { SongContext } from '../App';
 
 function SongList() {
 
     const { data, loading, error } = useSubscription(GET_SONGS);
-
-    // const song = {
-    //     title: "sss0",
-    //     artist: "asdf",
-    //     thumbnail: "https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg"
-    // }
 
     if (loading) {
         return (
