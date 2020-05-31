@@ -1,6 +1,8 @@
 import React from 'react';
 import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
+import { useMutation } from '@apollo/react-hooks';
+import { ADD_OR_REMOVE_FROM_QUEUE } from '../graphql/mutation';
 
 function QueuedSongList({queue}) {
     const greaterThanMd = useMediaQuery(theme => theme.breakpoints.up('md'))
@@ -50,8 +52,16 @@ const useStyles = makeStyles(theme => ({
 function QueuedSong({ song }) {
 
     const classes = useStyles();
-
+    const [addOrRemoveFromQueue] = useMutation(ADD_OR_REMOVE_FROM_QUEUE);
     const { title, artist, thumbnail } = song;
+
+    function handleAddOrRemoveFromQueue() {
+        addOrRemoveFromQueue({
+            variables: {
+                input: { ...song, __typename: 'Song' }
+            }
+        })
+    }
 
     return (
         <div className={classes.container}>
@@ -64,7 +74,7 @@ function QueuedSong({ song }) {
                     {artist}
                 </Typography>
             </div>
-            <IconButton>
+            <IconButton onClick={handleAddOrRemoveFromQueue}>
                 <Delete color="error" />
             </IconButton>
         </div>
